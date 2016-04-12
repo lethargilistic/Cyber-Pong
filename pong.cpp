@@ -5,8 +5,9 @@
 #include <stdlib.h> //for srand and rand
 #include <SFML/Graphics.hpp>//for graphics
 #include <SFML/Audio.hpp> //for sound
+#include "MainMenu.cpp" //include main menu 
 
-  float pi = 3.1415;
+float pi = 3.1415;
 void ball_traits(sf::RectangleShape& ball, sf::RectangleShape& leftPaddle, sf::RectangleShape& rightPaddle, int& direction, sf::Clock& clock, float& angle, sf::Sound& blip);
 int paddle_collision(const int& paddleSizeY, sf::RectangleShape& ball, sf::RectangleShape& leftPaddle, sf::RectangleShape& rightPaddle, int& direction, float& angle, sf::Sound& blip);
 void ai_paddle(sf::RectangleShape& ball, sf::RectangleShape& rightPaddle,  int& direction, sf::Clock& clock, const int& gameHeight); 
@@ -19,7 +20,12 @@ int direction = -1;
   const int gameHeight = 600;
   std::srand(time(0));
   sf::RenderWindow window(sf::VideoMode(gameWidth, gameHeight), "Pong!");
+
+//create menu object as type Mainmenu
+  MainMenu menu;
+  menu(window.getSize());
   window.setFramerateLimit(65);
+  
   //Create left paddle (player's paddle)
    const int paddleSizeY = 100;
   sf::RectangleShape leftPaddle(sf::Vector2f(20, paddleSizeY));
@@ -73,6 +79,7 @@ int direction = -1;
 	//clear
         window.clear();
 	//draw
+	menu.draw(window);
         window.draw(leftPaddle);
 	window.draw(rightPaddle);
 	window.draw(ball);
